@@ -2,6 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
+import Header from "@/components/Header";
 
 
 export default function Home() {
@@ -29,8 +30,10 @@ export default function Home() {
     };
 
   return (
+    <>
+    <Header/>
     <div className="flex justify-center items-center h-screen bg-amber-300">
-        <form className="bg-white p-6 rounded shadow-lg" onSubmit={handleSubmit}>
+        <form className="bg-white p-6 rounded shadow-lg w-96" onSubmit={handleSubmit}>
             <h2 className="text-xl font-bold mb-4">Create New Task</h2>
             <div className="mb-4">
                 <label className="block text-gray-700">Title</label>
@@ -45,5 +48,6 @@ export default function Home() {
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Create Task</button>
         </form>
     </div>
+    </>
   );
 }
