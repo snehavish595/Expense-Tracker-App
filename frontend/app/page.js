@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <>
     <Header/>
-    <div className="flex justify-center items-center h-screen bg-amber-300">
+    {/* <div className="flex justify-center items-center h-screen border-t-1 border-gray-100">
         <form className="bg-white p-6 rounded shadow-lg w-96" onSubmit={handleSubmit}>
             <h2 className="text-xl font-bold mb-4">Create New Task</h2>
             <div className="mb-4">
@@ -47,6 +47,12 @@ export default function Home() {
 
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Create Task</button>
         </form>
+    </div> */}
+
+    {/* // Add expense */}
+    <div className="flex flex-col justify-center bg-green-300">
+        <div className="heading">Add Expense <span className="text-purple-700 text-5xl font-medium">+</span></div>
+        <div className="add-expense-form">add</div>
     </div>
     </>
   );
