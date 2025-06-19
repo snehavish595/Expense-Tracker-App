@@ -50,8 +50,8 @@ export default function Home() {
     </div> */}
 
     {/* // Add expense */}
-    <div className="flex flex-col justify-center bg-green-300">
-        <div className="heading">Add Expense <span className="text-purple-700 text-5xl font-medium">+</span></div>
+    <div className="flex flex-col justify-center bg-green-300 px-12">
+        <div className="heading font-medium bg-amber-200">Add Expense <span className="text-purple-700 text-5xl font-medium">+</span></div>
         <div className="add-expense-form">add</div>
     </div>
     </>
