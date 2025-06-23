@@ -5,7 +5,11 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}', // If you have a components folder
   ],
   theme: {
-    extend: {},
+    extend: {
+       fontFamily: {
+        inter: ['Inter', 'sans-serif'], // Add your custom font here
+      },
+    },
   },
   plugins: [],
 };
