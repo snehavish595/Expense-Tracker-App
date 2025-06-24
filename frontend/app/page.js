@@ -38,7 +38,7 @@ export default function Home() {
       <Header />
 
       {/* // Add expense */}
-      <div className="flex flex-col justify-center px-4 sm:px-12 mt-12">
+      <div className="flex flex-col justify-center px-4 mt-12">
         <form onSubmit={handleSubmit}>
           <div className="flex items-center gap-2 font-medium p-2">
             <span className="text-lg font-bold">Add Expense</span>
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
           <div className="mt-6 ml-6">
             <div>
-              <div className="grid grid-cols-3 sm:grid-cols-8 gap-4 p-2  rounded-lg text-center">
+              <div className="grid grid-cols-8 gap-10 p-2  rounded-lg text-center">
                 <div>Expense Name</div>
                 <div>Amount</div>
                 <div>Category</div>
