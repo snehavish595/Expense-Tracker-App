@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Expense
 
-class TaskSerializer(serializers.ModelSerializer):
+class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Task
-        fields = ['id', 'title', 'description', 'created_at', 'status']
+        model = Expense
+        fields = ['id', 'name', 'amount','category', 'created_at']
         read_only_fields = ['id', 'created_at']

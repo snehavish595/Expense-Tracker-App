@@ -4,5 +4,5 @@ from .import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tasks/', include('expenses.urls')),
+    path('expenses/', include('expenses.urls')),
 ]
