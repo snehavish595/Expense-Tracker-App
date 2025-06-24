@@ -1,13 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import Header from "@/components/Header";
 
 export default function Home() {
+  const [expenses, setExpenses] = useState([]);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/expenses/expenses/")
+      .then((response) => {
+        setExpenses(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching expenses: ", error);
+        alert("Error fetching expenses: " + error.message);
+      });
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +59,7 @@ export default function Home() {
               +
             </span>
           </div>
-          <div className="mt-6 ml-6">
+          <div className=" shadow-lg px-6 w-8xl py-12 mx-6">
             <div>
               <div className="grid grid-cols-8 gap-10 p-2  rounded-lg text-center">
                 <div>Expense Name</div>
@@ -88,6 +101,46 @@ export default function Home() {
             </div>
           </div>
         </form>
+      </div>
+
+      {/* Show expenses */}
+      <div className="flex flex-col justify-center px-4 mt-12">
+        <div className="flex items-center gap-2 font-medium p-2">
+          <span className="text-lg font-bold">Expenses</span>
+          <span className="text-purple-700 text-4xl font-medium leading-none">
+            <img
+              src="/images/expenses.png"
+              alt="Expenses"
+              className="w-8 h-8"
+            />
+          </span>
+        </div>
+        <div className=" shadow-lg px-6 w-8xl py-12 mx-6">
+          <div>
+            <div className="grid grid-cols-8 gap-10 p-2  rounded-lg text-center">
+              <div>Expense Name</div>
+              <div>Amount</div>
+              <div>Date</div>
+              <div>Category</div>
+              <div>Edit</div>
+              <div>Delete</div>
+            </div>
+
+            <div className="grid grid-cols-8 gap-6 p-2 rounded-lg text-center">
+              {expenses.map((expense) => (
+                <div key={expense.id}>
+                  <div>{expense.name}</div> 
+                  <div>{expense.amount}</div>
+                  <div>{expense.created_at}</div>
+                  <div>{expense.category}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="flex flex-wrap gap-6 p-2 rounded-lg text-center"></div>
+          </div>
+        </div>
       </div>
     </>
   );
