@@ -46,6 +46,9 @@ export default function Home() {
     }
   };
 
+    // Calculate total expense
+  const totalExpense = expenses.reduce((acc, expense) => acc + parseFloat(expense.amount || 0), 0);
+
   return (
     <>
       <Header />
@@ -117,7 +120,7 @@ export default function Home() {
         </div>
         <div className=" shadow-lg px-6 w-8xl py-12 mx-6">
           <div>
-            <div className="grid grid-cols-8 gap-10 p-2  rounded-lg text-center">
+            <div className="grid grid-cols-6 gap-10 p-2 mb-5   text-center border-b-3 border-gray-200">
               <div>Expense Name</div>
               <div>Amount</div>
               <div>Date</div>
@@ -126,15 +129,51 @@ export default function Home() {
               <div>Delete</div>
             </div>
 
-            <div className="grid grid-cols-8 gap-6 p-2 rounded-lg text-center">
+            <div>
               {expenses.map((expense) => (
-                <div key={expense.id}>
-                  <div>{expense.name}</div> 
-                  <div>{expense.amount}</div>
-                  <div>{expense.created_at}</div>
+                <div
+                  key={expense.id}
+                  className="grid grid-cols-6 gap-10 p-2 text-center"
+                >
+                  <div>{expense.name}</div>
+                  <div>₹{expense.amount}</div>
+                  <div>
+                    {new Date(expense.created_at).toLocaleDateString("en-IN", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </div>
                   <div>{expense.category}</div>
+                  <div>
+                    {/* Add edit functionality here */}
+                    <button className="text-blue-500">
+                      <img
+                        src="images/edit.png"
+                        className="w-8 cursor-pointer"
+                      />
+                    </button>
+                  </div>
+                  <div>
+                    {/* Add delete functionality here */}
+                    <button className="text-red-500">
+                      <img
+                        src="images/delete.png"
+                        className="w-8 cursor-pointer"
+                      />
+                    </button>
+                  </div>
                 </div>
               ))}
+            </div>
+
+            <div className="grid grid-cols-6 gap-10 p-2 mb-5   text-center border-t-2  border-gray-200">
+              <div></div>
+              <div className="text-green-500 font-semibold">Total: ₹{totalExpense.toFixed(2)}</div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
           </div>
           <div>
