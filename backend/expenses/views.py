@@ -21,6 +21,18 @@ def show_expense(request):
     serializer = ExpenseSerializer(expenses, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['PUT'])
+def update_expense(request, id):
+    try:
+        expense = Expense.objects.get(id=id)
+        serializer = ExpenseSerializer(expense, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)     
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Expense.DoesNotExist:
+        return Response({'error': 'Expense not found'}, status=status.HTTP_404_NOT_FOUND)
+
 @api_view(['DELETE'])
 def delete_expense(request,id):
     try:
