@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="flex flex-wrap w-full h-16 shadow-lg ">
+    <div className="flex flex-wrap w-full h-16 shadow-lg">
       <div className="left w-[15%] flex items-center mx-auto">
         <div>
           <Image
