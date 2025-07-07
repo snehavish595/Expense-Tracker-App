@@ -1,9 +1,12 @@
+// page.js
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import Header from "@/components/Header";
-import ExpenseListCard from "@/components/ExpenseListCard"; // Import the new component
+import ExpenseListCard from "@/components/ExpenseListCard";
+import PieChart from "@/components/PieChart"; // Import PieChart
+import LineChart from "@/components/LineChart"; // Import LineChart
 
 // Helper function to format date
 const formatExpenseDate = (dateString) => {
@@ -42,6 +45,9 @@ export default function Home() {
   // New state variables for day-wise and categorical expenses
   const [past30DaysSumExpenses, setPast30DaysSumExpenses] = useState([]);
   const [categoricalExpenses, setCategoricalExpenses] = useState([]);
+
+  //Search bar
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchExpenses();
@@ -113,7 +119,10 @@ export default function Home() {
       if (expenseDate >= thirtyDaysAgo && expenseDate <= now) {
         const dateKey = expenseDate.toDateString(); // "Mon Jul 01 2024"
         const existingAmount = dayWiseMap.get(dateKey) || 0;
-        dayWiseMap.set(dateKey, existingAmount + parseFloat(expense.amount || 0));
+        dayWiseMap.set(
+          dateKey,
+          existingAmount + parseFloat(expense.amount || 0)
+        );
       }
     });
 
@@ -135,7 +144,10 @@ export default function Home() {
     currentExpenses.forEach((expense) => {
       const categoryKey = expense.category || "Uncategorized";
       const existingAmount = categoryMap.get(categoryKey) || 0;
-      categoryMap.set(categoryKey, existingAmount + parseFloat(expense.amount || 0));
+      categoryMap.set(
+        categoryKey,
+        existingAmount + parseFloat(expense.amount || 0)
+      );
     });
 
     // Convert map to array of objects
@@ -308,26 +320,29 @@ export default function Home() {
       </div>
 
       {/* Show Expenses */}
-      <div className="flex flex-col justify-center px-4 mt-12">
-        <div className="flex items-center gap-2 font-medium p-2">
-          <span className="text-lg font-bold">Expenses</span>
-          <span className="text-purple-700 text-4xl font-medium leading-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-wallet w-8 h-8"
-            >
-              <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12c.79 0 1.42-.36 1.77-1H20a2 2 0 0 0 2-2v-2h-2.83a2 2 0 0 1-1.77-1H20a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1Z" />
-              <path d="M18 17v-1h.01" />
-            </svg>
-          </span>
+      <div className="flex flex-col justify-center px-4 mt-12 w-full">
+        <div className="flex w-[90%] mx-auto">
+          <div className="flex items-center gap-2 font-medium p-2 w-1/2">
+            <span className="text-lg font-bold">Expenses</span>
+            <span className="text-purple-700 text-4xl font-medium leading-none">
+              <img
+                src="/images/expenses.png"
+                alt="Expenses Icon"
+                className="w-8 h-8"
+              />
+            </span>
+          </div>
+
+          {/* Search bar */}
+          <div className="flex justify-end  w-1/2">
+            <input
+              type="text"
+              placeholder="Search Expenses"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 w-full max-w-xs"
+            />
+          </div>
         </div>
         <div className="shadow-lg px-2 py-6 sm:px-6 sm:py-12 mx-auto w-full max-w-[90%]">
           <div className="hidden sm:grid grid-cols-6 gap-2 sm:gap-10 p-2 mb-5 text-center font-semibold border-b-2 border-gray-200">
@@ -540,7 +555,7 @@ export default function Home() {
         <ExpenseSummaryCard title="LAST 7 DAYS" amount={last7DaysExpense} />
       </div>
 
-      {/* Day-wise and Categorical Expense Cards */}
+      {/* Day-wise and Categorical Expense List Cards (optional, if you still want the lists) */}
       <div className="flex justify-center flex-wrap gap-6 mt-12 px-4 mb-12">
         <ExpenseListCard
           title="Past 30 days sum expenses"
@@ -550,6 +565,15 @@ export default function Home() {
           title="Categorical expenses"
           data={categoricalExpenses}
         />
+      </div>
+
+      {/* Day-wise and Categorical Expense Charts */}
+      <div className="flex justify-center flex-wrap gap-6 mt-12 px-4 mb-12">
+        {/* Replace ExpenseListCard with LineChart for Past 30 days sum expenses */}
+        <LineChart data={past30DaysSumExpenses} />
+
+        {/* Replace ExpenseListCard with PieChart for Categorical expenses */}
+        <PieChart data={categoricalExpenses} />
       </div>
     </>
   );
