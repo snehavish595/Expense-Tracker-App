@@ -321,7 +321,7 @@ export default function Home() {
 
       {/* Show Expenses */}
       <div className="flex flex-col justify-center px-4 mt-12 w-full">
-        <div className="flex w-[90%] mx-auto">
+        <div className="flex w-[95%] ">
           <div className="flex items-center gap-2 font-medium p-2 w-1/2">
             <span className="text-lg font-bold">Expenses</span>
             <span className="text-purple-700 text-4xl font-medium leading-none">
@@ -359,7 +359,8 @@ export default function Home() {
               No expenses recorded yet.
             </div>
           ) : (
-            userExpenses.map((expense) => (
+            userExpenses.filter((expense) => expense.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((expense) => (
               <div
                 key={expense.id}
                 className="flex flex-col sm:grid sm:grid-cols-6 gap-2 sm:gap-10 p-4 sm:p-2 text-center border-b sm:border-b-0 border-gray-100 mb-2 sm:mb-0 rounded-lg sm:rounded-none bg-white sm:bg-transparent shadow-sm sm:shadow-none"
