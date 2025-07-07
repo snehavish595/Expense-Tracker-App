@@ -359,7 +359,16 @@ export default function Home() {
               No expenses recorded yet.
             </div>
           ) : (
-            userExpenses.filter((expense) => expense.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            userExpenses
+            .filter((expense) => {
+              const query = searchQuery.toLowerCase();
+              return (
+                expense.name.toLowerCase().includes(query) ||
+                expense.category.toLowerCase().includes(query) ||
+                expense.amount.toString().includes(query)
+              )
+            })
+
             .map((expense) => (
               <div
                 key={expense.id}
