@@ -1,25 +1,30 @@
+// components/Header.js
 import React from "react";
 import Image from "next/image";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Header = () => {
   return (
-    <div className="flex flex-wrap w-full h-16 shadow-lg">
-      <div className="left w-[15%] flex items-center mx-auto">
-        <div>
+    <header className="bg-white shadow sticky top-0 z-40 w-full">
+      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-4">
           <Image
-            className="h-12 w-12 mx-auto rounded-3xl p-1 border "
             src="/images/logo.png"
-            alt="Logo"
-            width={200}
-            height={20}
+            alt="Expense Tracker Logo"
+            width={40}
+            height={40}
+            className="rounded-full border p-1"
           />
+          <span className="text-xl font-bold text-purple-700">Expense Tracker</span>
         </div>
-        <div className="font-bold ml-4 text-lg">Expense Tracker</div>
+
+        <nav className="hidden md:flex items-center space-x-6">
+          <Link href="/" className="text-gray-700 hover:text-purple-600 font-medium transition">Home</Link>
+          <Link href="/about" className="text-gray-700 hover:text-purple-600 font-medium transition">About</Link>
+          <Link href="/contact" className="text-gray-700 hover:text-purple-600 font-medium transition">Contact</Link>
+        </nav>
       </div>
-      <div className="middle w-4/5"></div>
-      <div className="right w-1/10"></div>
-    </div>
+    </header>
   );
 };
 

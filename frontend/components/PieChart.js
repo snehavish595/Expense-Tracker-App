@@ -51,7 +51,7 @@ const PieChart = ({ data }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center min-w-[430px] max-w-[44%] flex-grow transition-transform transform hover:scale-105 duration-300 ease-in-out border border-gray-200 h-[400px]">
+    <div className="bg-white rounded-xl shadow-lg p-6 w-[49.5%] h-[400px] max-w-2xl mx-auto border border-gray-200">
       <Pie data={chartData} options={options} />
     </div>
   );

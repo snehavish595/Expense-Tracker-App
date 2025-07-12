@@ -1,6 +1,8 @@
 // app/page.js
 "use client";
+
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ExpenseListCard from "@/components/ExpenseListCard";
 import ExpenseForm from "@/components/ExpenseForm";
 import PieChart from "@/components/PieChart";
@@ -25,24 +27,24 @@ export default function Home() {
     <main className="min-h-screen bg-gray-100">
       <Header />
 
-      <section className="container mx-auto py-6 px-4">
+      <section className="container mx-auto py-10 px-4 w-[90%]">
         {/* Overview Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <Card title="Last 365 Days" value={last365DaysExpense} />
-          <Card title="Last 30 Days" value={last30DaysExpense} />
-          <Card title="Last 7 Days" value={last7DaysExpense} />
-          <Card title="Total" value={totalExpense} />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          <OverviewCard title="Last 365 Days" value={last365DaysExpense} />
+          <OverviewCard title="Last 30 Days" value={last30DaysExpense} />
+          <OverviewCard title="Last 7 Days" value={last7DaysExpense} />
+          <OverviewCard title="Total" value={totalExpense} />
         </div>
 
         {/* Charts */}
-        <div className="flex flex-wrap gap-4 mb-6 justify-center">
+        <div className="flex flex-wrap justify-center w-full gap-2">
           <LineChart data={past30DaysSumExpenses} />
           <PieChart data={categoricalExpenses} />
         </div>
 
         {/* Add Expense */}
-        <div className="mb-6 max-w-6xl mx-auto px-4 py-8 space-y-8">
-          <h2 className="text-xl font-bold mb-2">Add New Expense</h2>
+        <div className="mt-16 mb-12 w-full mx-auto">
+          {/* <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Expense</h2> */}
           <ExpenseForm
             name={name}
             amount={amount}
@@ -56,18 +58,19 @@ export default function Home() {
         </div>
 
         {/* Expenses List */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <ExpenseListCard
-            title="All Expenses"
-            data={userExpenses.map(exp => ({
-              label: exp.name,
-              amount: parseFloat(exp.amount),
-              id: exp.id,
-            }))}
-            onEdit={handleEdit}
-            onDelete={handleDeleteClick}
-          />
-        </div>
+        <ExpenseListCard
+          title="All Expenses"
+          data={userExpenses.map(exp => ({
+            label: exp.name,
+            name: exp.name,
+            amount: parseFloat(exp.amount),
+            category: exp.category,
+            id: exp.id,
+            created_at: exp.created_at
+          }))}
+          onEdit={handleEdit}
+          onDelete={handleDeleteClick}
+        />
       </section>
 
       {showModal && (
@@ -89,15 +92,17 @@ export default function Home() {
           onCancel={handleCancelDelete}
         />
       )}
+
+      <Footer />
     </main>
   );
 }
 
-function Card({ title, value }) {
+function OverviewCard({ title, value }) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow text-center">
+    <div className="bg-white p-5 rounded-lg shadow text-center border border-gray-200">
       <p className="text-sm text-gray-500 font-medium uppercase">{title}</p>
-      <p className="text-2xl font-bold text-green-600">₹{parseFloat(value).toFixed(2)}</p>
+      <p className="text-2xl font-bold text-indigo-600">₹{parseFloat(value).toFixed(2)}</p>
     </div>
   );
 }

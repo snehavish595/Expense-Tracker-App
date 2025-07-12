@@ -23,61 +23,62 @@ ChartJS.register(
 );
 
 const LineChart = ({ data }) => {
-  // Sort data by date in ascending order for the line chart
-  const sortedData = [...data].sort((a, b) => new Date(a.label) - new Date(b.label));
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.label) - new Date(b.label)
+  );
 
   const chartData = {
-    labels: sortedData.map(item => item.label),
+    labels: sortedData.map((item) => item.label),
     datasets: [
       {
-        label: 'Sum of daily expenses',
-        data: sortedData.map(item => item.amount),
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        tension: 0.3, // Makes the line curved
+        label: 'Daily Expenses (₹)',
+        data: sortedData.map((item) => item.amount),
+        borderColor: 'rgba(99, 102, 241, 1)', // Tailwind Indigo-500
+        backgroundColor: 'rgba(99, 102, 241, 0.2)',
+        tension: 0.4,
         fill: true,
-        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+        pointBackgroundColor: 'rgba(99, 102, 241, 1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+        pointHoverBorderColor: 'rgba(99, 102, 241, 1)',
       },
     ],
   };
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Allows the chart to take the parent's size
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'bottom',
       },
       title: {
         display: true,
-        text: 'Daily Expense Sum',
+        text: 'Spending Over Last 30 Days',
         font: {
           size: 18,
         },
+        color: '#374151', // Tailwind Gray-700
       },
     },
     scales: {
       x: {
-        title: {
-          display: false,
-          text: 'Date',
-        },
+        ticks: { color: '#6B7280' }, // Gray-500
+        grid: { display: false },
       },
       y: {
-        title: {
-          display: false,
-          text: 'Amount (₹)',
-        },
         beginAtZero: true,
+        ticks: { color: '#6B7280' },
+        grid: {
+          color: '#E5E7EB', // Gray-200
+          borderDash: [2, 2],
+        },
       },
     },
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center min-w-[430px] max-w-[44%] flex-grow transition-transform transform hover:scale-105 duration-300 ease-in-out border border-gray-200 h-[400px]">
+    <div className="bg-white rounded-xl shadow-lg p-6 w-[49.5%] h-[400px] max-w-2xl mx-auto border border-gray-200">
       <Line data={chartData} options={options} />
     </div>
   );
