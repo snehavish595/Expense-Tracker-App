@@ -33,7 +33,7 @@ export const useExpenses = () => {
     const loadExpenses = async () => {
       try {
         const { data } = await fetchExpenses();
-        console.log("Fetched expenses:", data); // 👈 ADD THIS
+        console.log("Fetched expenses:", data);
         setUserExpenses(data);
       } catch (err) {
         console.error("Failed to load expenses", err);
