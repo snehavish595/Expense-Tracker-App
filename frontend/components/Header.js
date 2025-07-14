@@ -6,7 +6,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <header className="bg-white shadow sticky top-0 z-40 w-full">
-      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+      <div className="container mx-auto flex items-center justify-between px-6 py-3">
         <div className="flex items-center gap-4">
           <Image
             src="/images/logo.png"
